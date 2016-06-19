@@ -3,7 +3,7 @@
 // A file to keep track of all the file paths used throughout cakes.
 
 // The "topdir"
-#define PATH_CAKES "/cakes"
+#define PATH_CAKES "SD:/cakes"
 
 #define PATH_FIRMWARE PATH_CAKES "/firmware.bin"
 #define PATH_PATCHED_FIRMWARE PATH_CAKES "/firmware_patched.bin"
@@ -22,7 +22,7 @@
 
 #define PATH_MEMORY PATH_CAKES "/memory.bin"
 #define PATH_UNSUPPORTED_FIRMWARE PATH_CAKES "/firmware_unsupported.bin"
-#define PATH_SLOT0X25KEYX "/slot0x25keyX.bin"
-#define PATH_SLOT0X11KEY96 "/slot0x11key96.bin"
+#define PATH_SLOT0X25KEYX "SD:/slot0x25keyX.bin"
+#define PATH_SLOT0X11KEY96 "SD;/slot0x11key96.bin"
 #define PATH_PATCHES PATH_CAKES "/patches"
 #define PATH_CONFIG PATH_CAKES "/config.dat"

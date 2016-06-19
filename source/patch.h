@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 #include "headers.h"
-#include "fatfs/ffconf.h"
+#include <ctr9/io/fatfs/ffconf.h>
 
 #define MAX_CAKES 0x10
 

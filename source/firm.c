@@ -12,7 +12,7 @@
 #include "config.h"
 #include "fcram.h"
 #include "paths.h"
-#include "fatfs/ff.h"
+#include <ctr9/io/fatfs/ff.h>
 #include "external/crypto.h"
 #else
 #include <string.h>

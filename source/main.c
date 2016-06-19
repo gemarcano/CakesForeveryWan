@@ -11,8 +11,14 @@
 #include "fcram.h"
 #include "paths.h"
 #include "headers.h"
-#include "fatfs/sdmmc/sdmmc.h"
-#include "external/i2c.h"
+#include <ctr9/ctr_system.h>
+#include <ctr9/io.h>
+#include <ctr9/io/ctr_fatfs.h>
+
+ctr_nand_interface nand_io;
+ctr_nand_crypto_interface ctr_io;
+ctr_nand_crypto_interface twl_io;
+ctr_sd_interface sd_io;
 
 #define MAX_EMUNANDS 9
 
@@ -66,7 +72,7 @@ void menu_emunand()
     char unnamed[] = "emuNAND #";
 
     uint32_t gap;
-    if (getMMCDevice(0)->total_size > 0x200000) {
+    if (ctr_io_disk_size(&nand_io) > 0x200000) {
         gap = 0x400000;
     } else {
         gap = 0x200000;
@@ -189,8 +195,7 @@ void menu_main()
                 version_info();
                 break;
             case 4:
-                i2cWriteRegister(I2C_DEV_MCU, 0x20, 1);
-                while(1);  // Won't break out of this one >:D
+                ctr_system_poweroff();
         }
     }
 }
@@ -198,6 +203,7 @@ void menu_main()
 void main()
 {
     clear_screens();
+	ctr_fatfs_initialize(&nand_io, &ctr_io, &twl_io, &sd_io);
 
     if(mount_sd() != 0) {
         draw_loading("Failed to mount SD", "Make sure your SD card can be read correctly");

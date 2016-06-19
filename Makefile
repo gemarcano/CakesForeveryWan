@@ -22,12 +22,14 @@ dir_cakehax := CakeHax
 dir_cakebrah := CakeBrah
 
 ASFLAGS := -mlittle-endian -mcpu=arm946e-s -march=armv5te
-CFLAGS := -MMD -MP -marm $(ASFLAGS) -fno-builtin -fshort-wchar -Wall -Wextra -O2 -std=c11 -Wno-main -DCAKES_VERSION=\"$(revision)\"
+CFLAGS := -I${CTRARM9}/include -MMD -MP -marm $(ASFLAGS) -fno-builtin -fshort-wchar -Wall -Wextra -O2 -std=c11 -Wno-main -DCAKES_VERSION=\"$(revision)\" 
 CAKEFLAGS := dir_out=$(abspath $(dir_out))
 BRAHFLAGS := dir_out=$(abspath $(dir_out)/3ds/Cakes) \
 			 APP_DESCRIPTION="CFW for 3DS" \
 			 APP_AUTHOR="mid-kid" \
 			 ICON=$(abspath icon.png)
+LDFLAGS := -L${CTRARM9}/lib -lctr9
+
 
 objects_cfw = $(patsubst $(dir_source)/%.s, $(dir_build)/%.o, \
 			  $(patsubst $(dir_source)/%.c, $(dir_build)/%.o, \
@@ -94,7 +96,7 @@ $(dir_build)/main.bin: $(dir_build)/main.elf
 
 $(dir_build)/main.elf: $(objects_cfw)
 	# FatFs requires libgcc for some optimizations
-	$(LD) -T linker.ld  $(OUTPUT_OPTION) $^ $(shell $(CC) -print-libgcc-file-name)
+	$(LD) -T linker.ld  $(OUTPUT_OPTION) $^ $(LDFLAGS) $(shell $(CC) -print-libgcc-file-name)
 
 $(dir_build)/%.o: $(dir_source)/%.c
 	@mkdir -p "$(@D)"

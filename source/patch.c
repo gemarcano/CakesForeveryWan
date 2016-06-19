@@ -14,8 +14,8 @@
 #include "fcram.h"
 #include "paths.h"
 #include "config.h"
-#include "fatfs/ff.h"
-#include "fatfs/sdmmc/sdmmc.h"
+#include <ctr9/io/fatfs/ff.h>
+#include <ctr9/io/sdmmc/sdmmc.h>
 #include "external/crypto.h"
 #else
 #include <string.h>

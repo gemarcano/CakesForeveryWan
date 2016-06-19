@@ -2,13 +2,17 @@
 
 #include <stddef.h>
 #include "draw.h"
-#include "fatfs/ff.h"
+#include <ctr9/io.h>
+#include <ctr9/io/ctr_fatfs.h>
+
 
 static FATFS fs;
+static ctr_sd_interface sd;
 
 int mount_sd()
 {
-    if (f_mount(&fs, "0:", 1) != FR_OK) {
+	ctr_fatfs_initialize(NULL, NULL, NULL, &sd);
+    if (f_mount(&fs, "SD:", 1) != FR_OK) {
         print("Failed to mount SD card!");
         return 1;
     }
@@ -17,7 +21,7 @@ int mount_sd()
 
 int unmount_sd()
 {
-    if (f_mount(NULL, "0:", 1) != FR_OK) {
+    if (f_mount(NULL, "SD:", 1) != FR_OK) {
         print("Failed to mount SD card!");
         return 1;
     }
